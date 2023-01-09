@@ -18,5 +18,9 @@ const Spinner = () => {
 export default Spinner;
 
 const styles = StyleSheet.create({
-  spinner: {},
+  spinner: {
+    position: "absolute",
+    left: "50%",
+    right: "50%",
+  },
 });

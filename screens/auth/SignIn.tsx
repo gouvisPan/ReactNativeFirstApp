@@ -1,83 +1,54 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  Image,
-  SafeAreaView,
-  TouchableOpacity,
-  StatusBar,
-  Alert,
-} from "react-native";
-import React, { useState } from "react";
-import { auth } from "../../config/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { StyleSheet, View, Button, TextInput, StatusBar } from "react-native";
+import React from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { loginUser } from "../../store/actions/user-actions";
 import Spinner from "../../helpers/Spinner";
+import { Formik, FormikProps } from "formik";
+
+interface MyFormValues {
+  email: string;
+  password: string;
+}
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const initialValues: MyFormValues = { email: "", password: "" };
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.user.isLoading);
 
-  const onHandleLogin = () => {
+  const onHandleLogin = (email: string, password: string) => {
     dispatch(loginUser({ email, password }));
   };
 
   return (
     <View style={styles.container}>
-      {isLoading && <Spinner />}
-      <View style={styles.whiteSheet} />
-      <SafeAreaView style={styles.form}>
-        <Text style={styles.title}>Log In</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter email"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-          autoFocus={true}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Enter password"
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-          textContentType="password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <TouchableOpacity style={styles.button} onPress={onHandleLogin}>
-          <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 18 }}>
-            {" "}
-            Log In
-          </Text>
-        </TouchableOpacity>
-        <View
-          style={{
-            marginTop: 20,
-            flexDirection: "row",
-            alignItems: "center",
-            alignSelf: "center",
-          }}
-        >
-          <Text style={{ color: "gray", fontWeight: "600", fontSize: 14 }}>
-            Don't have an account?{" "}
-          </Text>
-          <TouchableOpacity>
-            <Text style={{ color: "#f57c00", fontWeight: "600", fontSize: 14 }}>
-              {" "}
-              Sign Up
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => onHandleLogin(values.email, values.password)}
+      >
+        {(props: FormikProps<MyFormValues>) => (
+          <>
+            <TextInput
+              placeholder="Email Address"
+              style={styles.textInput}
+              onChangeText={props.handleChange("email")}
+              onBlur={props.handleBlur("email")}
+              value={props.values.email}
+              keyboardType="email-address"
+            />
+
+            <TextInput
+              placeholder="Password"
+              style={styles.textInput}
+              onChangeText={props.handleChange("password")}
+              onBlur={props.handleBlur("password")}
+              value={props.values.password}
+              secureTextEntry
+            />
+            <Button onPress={() => props.handleSubmit()} title="Submit" />
+            {isLoading && <Spinner />}
+          </>
+        )}
+      </Formik>
       <StatusBar barStyle="light-content" />
     </View>
   );
@@ -90,47 +61,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  title: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: "orange",
-    alignSelf: "center",
-    paddingBottom: 24,
-  },
-  input: {
-    backgroundColor: "#F6F7FB",
-    height: 58,
-    marginBottom: 20,
-    fontSize: 16,
-    borderRadius: 10,
-    padding: 12,
-  },
-  backImage: {
-    width: "100%",
-    height: 340,
-    position: "absolute",
-    top: 0,
-    resizeMode: "cover",
-  },
-  whiteSheet: {
-    width: "100%",
-    height: "75%",
-    position: "absolute",
-    bottom: 0,
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 60,
-  },
-  form: {
-    flex: 1,
-    justifyContent: "center",
-    marginHorizontal: 30,
-  },
-  button: {
-    backgroundColor: "#f57c00",
-    height: 58,
-    borderRadius: 10,
-    justifyContent: "center",
+  loginContainer: {
+    width: "80%",
     alignItems: "center",
-    marginTop: 40,
+    backgroundColor: "white",
+    padding: 10,
+    elevation: 10,
+  },
+  textInput: {
+    height: 40,
+    width: "100%",
+    margin: 10,
+    backgroundColor: "white",
+    borderColor: "gray",
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: 10,
   },
 });
