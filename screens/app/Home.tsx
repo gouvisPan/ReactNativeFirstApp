@@ -1,5 +1,5 @@
 import { View, Text, Button } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppDispatch } from "../../hooks/hooks";

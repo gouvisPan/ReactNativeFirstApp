@@ -9,8 +9,8 @@ export const createUser = createAsyncThunk(
   async (credentials: SignUpCredentials, thunkApi) => {
     try {
       const response = await api.createUser(credentials);
-      console.log(response);
-      return response.user;
+      
+      return normalIzeUser(response) 
     } catch (error: any) {
       return thunkApi.rejectWithValue(error.message);
     }
