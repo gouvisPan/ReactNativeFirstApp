@@ -1,15 +1,24 @@
-import { UserCredential } from "firebase/auth";
+import { DocumentData } from "firebase/firestore";
 import User from "../model/User";
 
-const normalIzeUser = (apiUser: UserCredential) => {
-  const user: User = {
-    name: apiUser.user.displayName,
-    email: apiUser.user.email,
-    id: apiUser.user.uid,
-    authProvider: apiUser.user.providerId,
-  };
+export const normalizeUser = (apiUser: DocumentData | undefined) => {
+  let nUser: User;
 
-  return user;
+  apiUser
+    ? (nUser = {
+        uid: apiUser.uid,
+        name: apiUser.name,
+        email: apiUser.email,
+        motivation: apiUser.motivation,
+        avatar: apiUser.avatar,
+      })
+    : (nUser = {
+        uid: "",
+        name: "",
+        email: "",
+        motivation: "",
+        avatar: 1,
+      });
+
+  return nUser;
 };
-
-export default normalIzeUser;

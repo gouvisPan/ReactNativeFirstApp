@@ -1,9 +1,18 @@
-import { StyleSheet, View, Button, TextInput, StatusBar } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Button,
+  TextInput,
+  StatusBar,
+  Text,
+} from "react-native";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { loginUser } from "../../store/actions/user-actions";
-import Spinner from "../../helpers/Spinner";
+import { loginUser } from "../../store/actions/auth-actions";
 import { Formik, FormikProps } from "formik";
+import { colorPrimary } from "../../appStyles/appStyles";
+import { Link } from "@react-navigation/native";
+import { uiActions } from "../../store/reducers/ui-slice";
 
 interface MyFormValues {
   email: string;
@@ -18,6 +27,9 @@ const SignIn = () => {
   const onHandleLogin = (email: string, password: string) => {
     dispatch(loginUser({ email, password }));
   };
+  const handleToSignUp = () => {
+    dispatch(uiActions.toggleAuth());
+  };
 
   return (
     <View style={styles.container}>
@@ -27,6 +39,7 @@ const SignIn = () => {
       >
         {(props: FormikProps<MyFormValues>) => (
           <>
+            <Text>Sign In</Text>
             <TextInput
               placeholder="Email Address"
               style={styles.textInput}
@@ -45,7 +58,11 @@ const SignIn = () => {
               secureTextEntry
             />
             <Button onPress={() => props.handleSubmit()} title="Submit" />
-            {isLoading && <Spinner />}
+            <View>
+              <Text>Not a User?</Text>
+              <Button onPress={() => handleToSignUp()} title="Sign Up" />
+            </View>
+            {isLoading && <Text>Loading...</Text>}
           </>
         )}
       </Formik>
@@ -59,7 +76,7 @@ export default SignIn;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colorPrimary,
   },
   loginContainer: {
     width: "80%",

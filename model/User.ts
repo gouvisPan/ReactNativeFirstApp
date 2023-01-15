@@ -1,8 +1,9 @@
 interface User {
-  name: string | null;
-  email: string | null;
-  id: string;
-  authProvider: string;
+  uid: string;
+  name: string;
+  email: string;
+  motivation: string;
+  avatar: number;
 }
 
 export default User;
