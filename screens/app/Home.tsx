@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppDispatch } from "../../hooks/hooks";
-import { logoutUser } from "../../store/actions/user-actions";
+import { logoutUser } from "../../store/actions/auth-actions";
 
 const Home = () => {
   const navigation = useNavigation();
