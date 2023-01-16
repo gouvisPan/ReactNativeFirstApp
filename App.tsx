@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { store } from "./store/reducers/index";
 import { Provider } from "react-redux";
 import Navigation from "./Navigation";
+import { useAppSelector } from "./hooks/hooks";
 
 function App() {
   return (

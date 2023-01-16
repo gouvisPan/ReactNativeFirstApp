@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import Constants from "expo-constants";
+import { getFirestore } from "firebase/firestore";
 
 const app = initializeApp({
   apiKey: Constants.manifest!.extra!.apiKey,
@@ -12,7 +13,7 @@ const app = initializeApp({
 });
 
 const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
 
-export { auth, googleProvider };
+const db = getFirestore(app);
+export { auth, db };
 export default app;

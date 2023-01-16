@@ -9,10 +9,11 @@ import {
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { Formik, FormikProps } from "formik";
-import { colorPrimary } from "../../appStyles/appStyles";
+import { colorPrimary, generalStyles } from "../../appStyles/appStyles";
 import { Link } from "@react-navigation/native";
 import { uiActions } from "../../store/reducers/ui-slice";
 import { signUpUser } from "../../store/actions/auth-actions";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface MyFormValues {
   name: string;
@@ -40,11 +41,11 @@ const SignIn = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Formik
         initialValues={initialValues}
         onSubmit={(values) =>
-          signUpHandler(values.email, values.name, values.password)
+          signUpHandler(values.name, values.email, values.password)
         }
       >
         {(props: FormikProps<MyFormValues>) => (
@@ -53,7 +54,7 @@ const SignIn = () => {
 
             <TextInput
               placeholder="Name"
-              style={styles.textInput}
+              style={generalStyles.textInput}
               onChangeText={props.handleChange("name")}
               onBlur={props.handleBlur("name")}
               value={props.values.name}
@@ -61,7 +62,7 @@ const SignIn = () => {
 
             <TextInput
               placeholder="Email Address"
-              style={styles.textInput}
+              style={generalStyles.textInput}
               onChangeText={props.handleChange("email")}
               onBlur={props.handleBlur("email")}
               value={props.values.email}
@@ -70,13 +71,13 @@ const SignIn = () => {
 
             <TextInput
               placeholder="Password"
-              style={styles.textInput}
+              style={generalStyles.textInput}
               onChangeText={props.handleChange("password")}
               onBlur={props.handleBlur("password")}
               value={props.values.password}
               secureTextEntry
             />
-            <Button onPress={() => props.handleSubmit()} title="Submit" />
+            <Button onPress={() => props.handleSubmit()} title="Sign Up" />
             <View>
               <Text>Not a User?</Text>
               <Button onPress={() => handleToSignIn()} title="Sign In" />
@@ -86,7 +87,7 @@ const SignIn = () => {
         )}
       </Formik>
       <StatusBar barStyle="light-content" />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -103,14 +104,5 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 10,
     elevation: 10,
-  },
-  textInput: {
-    height: 40,
-    width: "100%",
-    margin: 10,
-    backgroundColor: "white",
-    borderColor: "gray",
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
   },
 });
