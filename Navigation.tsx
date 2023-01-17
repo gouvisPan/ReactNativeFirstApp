@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -9,6 +9,11 @@ import Profile from "./screens/Profile/Profile";
 import Statistics from "./screens/Statistics/Statistics";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { colorPrimary } from "./appStyles/appStyles";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./config/firebase";
+import { authActions } from "./store/reducers/authSlice";
+import { userActions } from "./store/reducers/userSlice";
+import { logoutUser } from "./store/actions/auth-actions";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,8 +25,18 @@ const profileName = "Profile";
 const Navigation = () => {
   const Stack = createNativeStackNavigator();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-  // const dispatch = useAppDispatch();
-  // dispatch(logoutUser());
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(authActions.autoLoginUser());
+      } else {
+        dispatch(authActions.setLoginStatus(false));
+        dispatch(userActions.autoLoginUser(null));
+      }
+    });
+  }, [dispatch]);
 
   return (
     <>

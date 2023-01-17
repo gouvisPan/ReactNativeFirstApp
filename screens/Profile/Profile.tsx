@@ -25,6 +25,7 @@ import {
   generalStyles,
 } from "../../appStyles/appStyles";
 import { Formik, FormikProps } from "formik";
+import DeleteAccount from "./DeleteAccount";
 
 interface MyFormValues {
   name: string;
@@ -33,8 +34,11 @@ interface MyFormValues {
 
 const Profile = () => {
   const navigation = useNavigation();
+
   const { data: user } = useAppSelector((state) => state.user);
-  const [selectedAvatar, setSelectedAvatar] = useState<number>(user!.avatar);
+  const [selectedAvatar, setSelectedAvatar] = useState<number>(
+    user!.avatar || 1
+  );
   const dispatch = useAppDispatch();
 
   const validate = Yup.object({
@@ -157,6 +161,8 @@ const Profile = () => {
       >
         <Ionicons name="log-out-outline" size={25} color={colorGreyWhite} />
       </TouchableOpacity>
+
+      <DeleteAccount />
     </SafeAreaView>
   );
 };
@@ -225,6 +231,7 @@ const s = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 5,
   },
   saveBtnTxt: {
     fontSize: 18,

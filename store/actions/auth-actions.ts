@@ -35,8 +35,8 @@ export const loginUser = createAsyncThunk(
   async (credentials: SignInCredentials, thunkApi) => {
     try {
       thunkApi.dispatch(uiActions.setCurrentIndex(0));
-
       await api.signInUser(credentials);
+
       thunkApi.dispatch(fetchUser());
       thunkApi.dispatch(fetchHabitList());
     } catch (error: any) {

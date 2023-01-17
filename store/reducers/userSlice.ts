@@ -58,7 +58,6 @@ const userSlice = createSlice({
       })
       .addCase(fetchUser.rejected, (state, obj) => {
         state.isLoading = false;
-        console.log(obj);
         state.data = null;
       });
   },

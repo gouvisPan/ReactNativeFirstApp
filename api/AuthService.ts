@@ -13,8 +13,6 @@ import SignInCredentials from "../model/interfaces/SignInCredentials";
 export const signUpUser = (
   credentials: SignUpCredentials
 ): Promise<UserCredential> => {
-  console.log(credentials);
-  console.log(credentials);
   const response = createUserWithEmailAndPassword(
     auth,
     credentials.email,

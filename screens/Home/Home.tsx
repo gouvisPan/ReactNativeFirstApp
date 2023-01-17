@@ -15,8 +15,6 @@ import AddHabitForm from "./AddHabitForm";
 import { colorGreyWhite, colorPrimary } from "../../appStyles/appStyles";
 import { useAppDispatch } from "../../hooks/hooks";
 import { renewWeeklyState } from "../../store/actions/habit-actions";
-import { authActions } from "../../store/reducers/authSlice";
-import { logoutUser } from "../../store/actions/auth-actions";
 
 const Home = () => {
   const navigation = useNavigation();

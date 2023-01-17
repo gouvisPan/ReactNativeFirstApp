@@ -29,7 +29,6 @@ const Auth = () => {
   }, []);
 
   useEffect(() => {
-    console.log(error);
     if (error) {
       setIsErrorDisplaying(true);
       const timer = setTimeout(() => {

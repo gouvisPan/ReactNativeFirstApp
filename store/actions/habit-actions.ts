@@ -103,7 +103,7 @@ export const fetchHabitList = createAsyncThunk(
   async (_: void, thunkApi) => {
     try {
       const response = await api.fetchHabits();
-
+      console.log(response);
       if (response) {
         thunkApi.dispatch(
           uiActions.setIsListEmpty(response.habits.length === 0)

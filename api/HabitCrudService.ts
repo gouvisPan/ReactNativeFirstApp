@@ -31,7 +31,6 @@ export const fetchHabits = async () => {
   try {
     const q = query(colletionRef, where("id", "==", auth.currentUser?.uid));
     const response = await getDocs(q);
-
     if (response.docs[0]) return response.docs[0].data();
 
     return undefined;

@@ -34,9 +34,6 @@ const authSlice = createSlice({
       state.error = null;
     },
   },
-  //  while the useEffect on App.tsx handles auth state, those extra reducers ensure:
-  //  a)That the Loading and Error states of the app are handled properly and
-  //  b)That the app is scalable and ready to run with different backends
   extraReducers(builder) {
     builder
       .addCase(loginUser.pending, (state) => {

@@ -11,15 +11,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { loginUser } from "../../store/actions/auth-actions";
 import { Formik, FormikProps } from "formik";
-import {
-  colorGrey,
-  colorGreyDark,
-  colorGreyLight,
-  colorGreyWhite,
-  colorPrimary,
-  generalStyles,
-} from "../../appStyles/appStyles";
-import { Link } from "@react-navigation/native";
+import { generalStyles } from "../../appStyles/appStyles";
 import { uiActions } from "../../store/reducers/ui-slice";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Yup from "yup";
@@ -42,6 +34,7 @@ const SignIn = () => {
   const onHandleLogin = (email: string, password: string) => {
     dispatch(loginUser({ email, password }));
   };
+
   const handleToSignUp = () => {
     dispatch(uiActions.toggleAuth());
   };
