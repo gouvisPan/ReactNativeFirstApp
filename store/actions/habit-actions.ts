@@ -6,6 +6,7 @@ import { RootState } from "../reducers";
 import { habitActions } from "../reducers/habitSlice";
 import { AddFormValues } from "../../model/interfaces/AddFormValues";
 import { renewWeek } from "../../helpers/renewWeek";
+import { uiActions } from "../reducers/ui-slice";
 
 export const setHabitList = createAsyncThunk(
   "habits/set",
@@ -25,11 +26,12 @@ export const removeHabit = createAsyncThunk(
     const habits: Habit[] = state.habits.habitList!;
     let newHabits: Habit[];
 
+    thunkApi.dispatch(uiActions.decreaseIndex());
     newHabits = habits.filter((h) => h.id !== id);
 
     try {
       await api.setHabits(newHabits);
-
+      thunkApi.dispatch(uiActions.setIsListEmpty(newHabits.length === 0));
       thunkApi.dispatch(habitActions.updateHabitList(newHabits));
     } catch (error: any) {
       return thunkApi.rejectWithValue(error.message);
@@ -56,6 +58,9 @@ export const addHabit = createAsyncThunk(
     };
     newHabits.push(newHabit);
 
+    thunkApi.dispatch(habitActions.updateHabitList(newHabits));
+    thunkApi.dispatch(uiActions.setCurrentIndex(newHabits.length - 1));
+    thunkApi.dispatch(uiActions.setIsListEmpty(false));
     try {
       await api.setHabits(newHabits);
       return newHabits;
@@ -99,7 +104,12 @@ export const fetchHabitList = createAsyncThunk(
     try {
       const response = await api.fetchHabits();
 
-      if (response) return response!.habits;
+      if (response) {
+        thunkApi.dispatch(
+          uiActions.setIsListEmpty(response.habits.length === 0)
+        );
+        return response!.habits;
+      }
 
       return undefined;
     } catch (error: any) {

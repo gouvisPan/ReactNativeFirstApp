@@ -84,24 +84,44 @@ const Profile = () => {
         >
           {(props: FormikProps<MyFormValues>) => (
             <>
-              <View style={s.avatarsCon}>
-                <Image
-                  source={require("../../assets/avatars/male1.png")}
-                  style={[s.img, user?.avatar === 1 ? s.active : {}]}
-                />
-                <Image
-                  source={require("../../assets/avatars/female1.png")}
-                  style={[s.img, user?.avatar === 2 ? s.active : {}]}
-                />
-                <Image
-                  source={require("../../assets/avatars/male2.png")}
-                  style={[s.img, user?.avatar === 3 ? s.active : {}]}
-                />
-                <Image
-                  source={require("../../assets/avatars/female2.png")}
-                  style={[s.img, user?.avatar === 4 ? s.active : {}]}
-                />
-              </View>
+              <TouchableOpacity style={s.avatarsCon}>
+                <TouchableOpacity
+                  onPress={() => handleAvatarClick(1)}
+                  style={selectedAvatar === 1 ? s.active : {}}
+                >
+                  <Image
+                    source={require("../../assets/avatars/male1.png")}
+                    style={s.img}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleAvatarClick(2)}
+                  style={selectedAvatar === 2 ? s.active : {}}
+                >
+                  <Image
+                    source={require("../../assets/avatars/female1.png")}
+                    style={s.img}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleAvatarClick(3)}
+                  style={selectedAvatar === 3 ? s.active : {}}
+                >
+                  <Image
+                    source={require("../../assets/avatars/male2.png")}
+                    style={s.img}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleAvatarClick(4)}
+                  style={selectedAvatar === 4 ? s.active : {}}
+                >
+                  <Image
+                    source={require("../../assets/avatars/female2.png")}
+                    style={s.img}
+                  />
+                </TouchableOpacity>
+              </TouchableOpacity>
               <Text style={s.label}>Name</Text>
               <TextInput
                 placeholder={user!.name || "Insert your name"}
@@ -135,7 +155,7 @@ const Profile = () => {
         style={s.signOut}
         onPress={() => onSignOutPressHandler()}
       >
-        <Ionicons name="log-out-outline" size={35} color={colorGreyWhite} />
+        <Ionicons name="log-out-outline" size={25} color={colorGreyWhite} />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -150,11 +170,11 @@ const s = StyleSheet.create({
   profileMain: {},
   signOut: {
     position: "absolute",
-    padding: 8,
-    borderRadius: 50,
+    padding: 6,
+    borderRadius: 60,
     bottom: 20,
     right: 10,
-    backgroundColor: colorPrimaryLight,
+    backgroundColor: colorPrimary,
   },
   avatarsCon: {
     display: "flex",
@@ -184,7 +204,9 @@ const s = StyleSheet.create({
   },
   active: {
     shadowColor: colorGreyDark,
-    marginBottom: 10,
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   titleCon: {
     marginTop: 15,

@@ -1,13 +1,22 @@
-import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Dashboard from "./Dashboard";
 import AddHabitForm from "./AddHabitForm";
 import { colorGreyWhite, colorPrimary } from "../../appStyles/appStyles";
 import { useAppDispatch } from "../../hooks/hooks";
 import { renewWeeklyState } from "../../store/actions/habit-actions";
+import { authActions } from "../../store/reducers/authSlice";
+import { logoutUser } from "../../store/actions/auth-actions";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -24,16 +33,18 @@ const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView style={s.homeCon}>
-      <Dashboard />
-      <TouchableOpacity
-        style={s.renewCon}
-        onPress={() => clickNewWeekHandler()}
-      >
-        <Text style={s.renewTxt}>Renew Week</Text>
-      </TouchableOpacity>
-      <AddHabitForm />
-    </SafeAreaView>
+    <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
+      <SafeAreaView style={s.homeCon}>
+        <Dashboard />
+        <TouchableOpacity
+          style={s.renewCon}
+          onPress={() => clickNewWeekHandler()}
+        >
+          <Text style={s.renewTxt}>Renew Week</Text>
+        </TouchableOpacity>
+        <AddHabitForm />
+      </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 };
 

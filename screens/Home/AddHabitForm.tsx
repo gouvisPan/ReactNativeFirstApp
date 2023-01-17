@@ -26,7 +26,7 @@ const AddHabitForm = () => {
 
   const validate = Yup.object({
     name: Yup.string()
-      .required("Name is required, please insert your name!")
+      .required("Name is required!")
       .max(20, "Describe your hobie in less than 20 characters!"),
     desiredPerc: Yup.string().min(0).max(100),
   });
@@ -42,7 +42,11 @@ const AddHabitForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => onSubmitHandler(values)}
+      validationSchema={validate}
+      onSubmit={(values, { resetForm }) => {
+        onSubmitHandler(values);
+        resetForm();
+      }}
     >
       {(props: FormikProps<AddFormValues>) => (
         <>
@@ -86,10 +90,11 @@ const s = StyleSheet.create({
   container: {
     paddingVertical: 10,
     backgroundColor: colorGreyWhite,
-    height: "30%",
+    height: "35%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    paddingBottom: 50,
   },
   top: {
     display: "flex",

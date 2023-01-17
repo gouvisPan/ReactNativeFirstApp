@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useAppSelector } from "./hooks/hooks";
+import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import Auth from "./screens/auth/Auth";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
@@ -20,6 +20,8 @@ const profileName = "Profile";
 const Navigation = () => {
   const Stack = createNativeStackNavigator();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  // const dispatch = useAppDispatch();
+  // dispatch(logoutUser());
 
   return (
     <>

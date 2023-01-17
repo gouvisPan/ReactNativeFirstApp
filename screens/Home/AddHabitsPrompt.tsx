@@ -24,7 +24,7 @@ export default AddHabitsPrompt;
 
 const s = StyleSheet.create({
   container: {
-    height: 200,
+    height: "100%",
   },
   colors: {
     height: "100%",

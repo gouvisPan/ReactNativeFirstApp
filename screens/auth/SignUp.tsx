@@ -5,6 +5,7 @@ import {
   TextInput,
   StatusBar,
   Text,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
@@ -14,6 +15,8 @@ import { Link } from "@react-navigation/native";
 import { uiActions } from "../../store/reducers/ui-slice";
 import { signUpUser } from "../../store/actions/auth-actions";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { authStyles } from "../../appStyles/authStyles";
+import { auth } from "../../config/firebase";
 
 interface MyFormValues {
   name: string;
@@ -50,7 +53,7 @@ const SignIn = () => {
       >
         {(props: FormikProps<MyFormValues>) => (
           <>
-            <Text>Sign Up</Text>
+            <Text style={authStyles.title}>Sign Up</Text>
 
             <TextInput
               placeholder="Name"
@@ -77,10 +80,21 @@ const SignIn = () => {
               value={props.values.password}
               secureTextEntry
             />
-            <Button onPress={() => props.handleSubmit()} title="Sign Up" />
+
+            <TouchableOpacity
+              style={authStyles.signCon}
+              onPress={() => props.handleSubmit()}
+            >
+              <Text style={authStyles.signTxt}>Sign Up</Text>
+            </TouchableOpacity>
             <View>
-              <Text>Not a User?</Text>
-              <Button onPress={() => handleToSignIn()} title="Sign In" />
+              <Text style={authStyles.questionTxt}>Not a User?</Text>
+              <TouchableOpacity
+                style={styles.signInCon}
+                onPress={() => handleToSignIn()}
+              >
+                <Text style={styles.signInTxt}>Sign In</Text>
+              </TouchableOpacity>
             </View>
             {isLoading && <Text>Loading...</Text>}
           </>
@@ -96,7 +110,8 @@ export default SignIn;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colorPrimary,
+    display: "flex",
+    alignItems: "center",
   },
   loginContainer: {
     width: "80%",
@@ -105,4 +120,6 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 10,
   },
+  signInCon: { alignSelf: "center" },
+  signInTxt: { fontSize: 18, textAlign: "center" },
 });

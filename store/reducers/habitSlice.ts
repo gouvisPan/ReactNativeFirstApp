@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Habit } from "../../model/Habit";
-import AddHabit from "../../pages/Home/AddHabit/AddHabit";
 import {
   setHabitList,
   fetchHabitList,
@@ -14,7 +13,6 @@ interface habitSliceState {
   isSuccess: boolean;
   error: null | string;
   habitList: null | Habit[];
-  habitListHistory: null | Habit[];
 }
 
 const initialState: habitSliceState = {
@@ -22,7 +20,6 @@ const initialState: habitSliceState = {
   isSuccess: false,
   error: null,
   habitList: [],
-  habitListHistory: null,
 };
 
 const habitSlice = createSlice({

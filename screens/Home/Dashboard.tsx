@@ -8,27 +8,22 @@ import { LinearGradient } from "expo-linear-gradient";
 import HabitRow from "./HabitRow";
 import { useSwipe } from "../../hooks/useSwipe";
 import { colorGreyWhite } from "../../appStyles/appStyles";
+import { uiActions } from "../../store/reducers/ui-slice";
 
 const Dashboard = () => {
   const habits = useAppSelector((state) => state.habits.habitList!);
   const dispatch = useAppDispatch();
-  const showWeek = habits && habits.length !== 0;
-  const [currentHabitIndex, setCurrentHabitIndex] = useState(0);
+  const isListEmpty = useAppSelector((state) => state.ui.isHabitListEmpty);
+  // const isListEmpty = true;
+  const currentHabitIndex = useAppSelector((state) => state.ui.currentIndex);
 
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 6);
 
   function onSwipeLeft() {
-    console.log("SWIPE LEFT");
-    if (currentHabitIndex < habits.length - 1) {
-      setCurrentHabitIndex((current) => current + 1);
-    }
+    dispatch(uiActions.increaseIndex(habits.length));
   }
   function onSwipeRight() {
-    console.log("SWIPE RIGHT");
-
-    if (currentHabitIndex > 0) {
-      setCurrentHabitIndex((current) => current - 1);
-    }
+    dispatch(uiActions.decreaseIndex());
   }
   const deleteHandler = (id: string) => {
     dispatch(removeHabit(id));
@@ -36,7 +31,7 @@ const Dashboard = () => {
 
   return (
     <View style={s.dash}>
-      {showWeek ? (
+      {!isListEmpty ? (
         <LinearGradient
           colors={["#20C997", "#00AD9C", "#009598", "#007A8B"]}
           onTouchStart={onTouchStart}

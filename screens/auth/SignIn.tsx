@@ -5,16 +5,25 @@ import {
   TextInput,
   StatusBar,
   Text,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { loginUser } from "../../store/actions/auth-actions";
 import { Formik, FormikProps } from "formik";
-import { colorPrimary, generalStyles } from "../../appStyles/appStyles";
+import {
+  colorGrey,
+  colorGreyDark,
+  colorGreyLight,
+  colorGreyWhite,
+  colorPrimary,
+  generalStyles,
+} from "../../appStyles/appStyles";
 import { Link } from "@react-navigation/native";
 import { uiActions } from "../../store/reducers/ui-slice";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Yup from "yup";
+import { authStyles } from "../../appStyles/authStyles";
 
 interface MyFormValues {
   email: string;
@@ -46,10 +55,10 @@ const SignIn = () => {
       >
         {(props: FormikProps<MyFormValues>) => (
           <>
-            <Text>Sign In</Text>
+            <Text style={authStyles.title}>Sign In</Text>
             <TextInput
               placeholder="Email Address"
-              style={generalStyles.textInput}
+              style={[generalStyles.textInput, styles.input]}
               onChangeText={props.handleChange("email")}
               onBlur={props.handleBlur("email")}
               value={props.values.email}
@@ -58,16 +67,26 @@ const SignIn = () => {
 
             <TextInput
               placeholder="Password"
-              style={generalStyles.textInput}
+              style={[generalStyles.textInput, styles.input]}
               onChangeText={props.handleChange("password")}
               onBlur={props.handleBlur("password")}
               value={props.values.password}
               secureTextEntry
             />
-            <Button onPress={() => props.handleSubmit()} title="Log In" />
+            <TouchableOpacity
+              style={authStyles.signCon}
+              onPress={() => props.handleSubmit()}
+            >
+              <Text style={authStyles.signTxt}>Log In</Text>
+            </TouchableOpacity>
             <View>
-              <Text>Not a User?</Text>
-              <Button onPress={() => handleToSignUp()} title="Sign Up" />
+              <Text style={authStyles.questionTxt}>Not a User?</Text>
+              <TouchableOpacity
+                style={styles.signUpCon}
+                onPress={() => handleToSignUp()}
+              >
+                <Text style={styles.signUpTxt}>Sign Up</Text>
+              </TouchableOpacity>
             </View>
             {isLoading && <Text>Loading...</Text>}
           </>
@@ -83,13 +102,14 @@ export default SignIn;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colorPrimary,
-  },
-  loginContainer: {
-    width: "80%",
+    marginTop: 5,
+    display: "flex",
     alignItems: "center",
-    backgroundColor: "white",
-    padding: 10,
-    elevation: 10,
   },
+
+  input: {
+    marginBottom: 12,
+  },
+  signUpCon: { alignSelf: "center" },
+  signUpTxt: { fontSize: 18, textAlign: "center" },
 });

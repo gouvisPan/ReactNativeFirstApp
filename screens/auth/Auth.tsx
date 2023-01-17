@@ -1,15 +1,14 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {} from "../../store/actions/user-actions";
 import { colorPrimary } from "../../appStyles/appStyles";
-
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { userActions } from "../../store/reducers/userSlice";
 import Notification from "../../components/Notification";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 interface MyFormValues {
   email: string;
@@ -45,10 +44,10 @@ const Auth = () => {
   const mountedJSX = isSignIn ? <SignIn /> : <SignUp />;
 
   return (
-    <>
+    <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
       {mountedJSX}
       {error && isErrorDisplaying && <Notification message={error} />}
-    </>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -57,7 +56,6 @@ export default Auth;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colorPrimary,
   },
   loginContainer: {
     width: "80%",

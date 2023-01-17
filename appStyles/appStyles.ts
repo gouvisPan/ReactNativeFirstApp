@@ -22,7 +22,8 @@ export const colorGreyBlack = "#212529";
 export const generalStyles = StyleSheet.create({
   textInput: {
     height: 40,
-    width: "100%",
+    width: "80%",
+    alignSelf: "center",
     marginHorizontal: 15,
     marginVertical: 8,
     backgroundColor: "white",

@@ -34,14 +34,13 @@ const Statistics = () => {
         </Text>
       ) : (
         <>
-          <View style={s.topOuter}>
-            <View style={s.topInner}>
-              <Text style={s.title}>Check your progress</Text>
-              <Text style={s.info}>
-                Each bar represents your performance-to-goal ratio!
-              </Text>
-            </View>
+          <View style={s.top}>
+            <Text style={s.title}>Check your progress</Text>
+            <Text style={s.info}>
+              Each bar represents your performance-to-goal ratio!
+            </Text>
           </View>
+
           <ScrollView style={s.list}>
             {habitsStats?.map((stats) => (
               <IndividualHabitStats habitStats={stats} key={stats.id} />
@@ -56,34 +55,34 @@ const Statistics = () => {
 export default Statistics;
 
 const s = StyleSheet.create({
-  noHabits: {},
+  noHabits: {
+    marginTop: 40,
+    alignSelf: "center",
+    fontSize: 20,
+  },
   statisticsCon: {
     marginTop: 22,
     paddingTop: 15,
   },
-  topInner: {
-    backgroundColor: colorPrimary,
-    paddingVertical: 5,
-    marginHorizontal: 35,
-    borderRadius: 30,
-  },
-  topOuter: {
-    paddingVertical: 20,
-    backgroundColor: colorPrimaryCD,
+  top: {
+    paddingVertical: 22,
   },
   title: {
     fontSize: 25,
     alignSelf: "center",
-    color: colorGreyWhite,
+    color: colorGreyBlack,
   },
   info: {
     fontSize: 12,
     alignSelf: "center",
     width: "50%",
     textAlign: "center",
-    color: colorGreyWhite,
-    lineHeight: 11,
+    color: colorGreyBlack,
+
     marginTop: 2,
   },
-  list: {},
+  list: {
+    paddingBottom: 450,
+    marginBottom: 100,
+  },
 });
