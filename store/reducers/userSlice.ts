@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Habit } from "../../model/Habit";
 import User from "../../model/User";
 import { createUser, fetchUser } from "../actions/user-actions";
 

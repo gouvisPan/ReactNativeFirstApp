@@ -81,7 +81,7 @@ const SignIn = () => {
                 <Text style={styles.signUpTxt}>Sign Up</Text>
               </TouchableOpacity>
             </View>
-            {isLoading && <Text>Loading...</Text>}
+            {isLoading && <Text style={authStyles.loading}>Loading...</Text>}
           </>
         )}
       </Formik>

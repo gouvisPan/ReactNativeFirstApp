@@ -32,4 +32,9 @@ export const authStyles = StyleSheet.create({
     fontWeight: "600",
     color: colorGreyWhite,
   },
+  loading: {
+    position: "absolute",
+    bottom: 80,
+    textAlign: "center",
+  },
 });
